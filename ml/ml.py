@@ -1,10 +1,10 @@
 import ujson
 from sklearn import base, pipeline
 import pandas as pd
-import dill
+# import dill
 from sklearn.externals import joblib
 
-class Estimator(base.BaseEstimator, base.RegressorMixin):
+class CityEstimator(base.BaseEstimator, base.RegressorMixin):
     def __init__(self):
         """
         File containing the traning data, in json format
@@ -28,15 +28,17 @@ class Estimator(base.BaseEstimator, base.RegressorMixin):
 
     def predict(self, X):
         return self.city_data.stars.mean()[X]
-        
-model = Estimator()
-model.fit('yelp_train_academic_dataset_business.json')
-joblib.dump(model, 'city_model.pkl') 
-dill.dump(model, open("city_model.dill", 'w'))
+#         
+# model = CityEstimator()
+# model.fit('yelp_train_academic_dataset_business.json')
+# joblib.dump(model, 'city_model.pkl', compress=9) 
+# dill.dump(model, open("city_model.dill", 'w'))
 
-clf1 = joblib.load('city_model.pkl') 
-with open("./city_model.dill") as city_model_file:
-    model = dill.load(city_model_file)
+clf1 = joblib.load('city_model.pkl')
+import ipdb; ipdb.set_trace()
+# print clf1.predict('Bonnyrigg')
+# with open("./city_model.dill") as city_model_file:
+#     model = dill.load(city_model_file)
 
 # X_train = range(5)
 # y_train = range(5)
