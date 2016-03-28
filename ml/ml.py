@@ -2,6 +2,7 @@ import ujson
 from sklearn import base, pipeline
 import pandas as pd
 import dill
+from sklearn.externals import joblib
 
 class Estimator(base.BaseEstimator, base.RegressorMixin):
     def __init__(self):
@@ -30,7 +31,12 @@ class Estimator(base.BaseEstimator, base.RegressorMixin):
         
 model = Estimator()
 model.fit('yelp_train_academic_dataset_business.json')
+joblib.dump(model, 'city_model.pkl') 
 dill.dump(model, open("city_model.dill", 'w'))
+
+clf1 = joblib.load('city_model.pkl') 
+with open("./city_model.dill") as city_model_file:
+    model = dill.load(city_model_file)
 
 # X_train = range(5)
 # y_train = range(5)
